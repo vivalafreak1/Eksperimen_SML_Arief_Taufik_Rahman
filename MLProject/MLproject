@@ -1,0 +1,9 @@
+name: telco-churn-model
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      dataset: {type: string, default: "telco_preprocessing/telco_processed.csv"}
+    command: "python MLProject/modelling.py {dataset}"
