@@ -27,5 +27,5 @@ if __name__ == "__main__":
         
         # Log model dengan input example
         input_example = X_train.iloc[:5]
-        mlflow.xgboost.log_model(sk_model=model, artifact_path="model", input_example=input_example)
+        mlflow.xgboost.log_model(xgb_model=model, artifact_path="model", input_example=input_example)
         print("Model berhasil dilatih dan disimpan di mlruns!")
