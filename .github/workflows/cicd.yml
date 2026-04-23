@@ -32,7 +32,8 @@ jobs:
 
       - name: Get latest MLflow run_id
         run: |
-          RUN_ID=$(ls -td mlruns/0/*/ | head -n 1 | cut -d'/' -f3)
+          # Mengambil run_id secara akurat menggunakan API Python MLflow
+          RUN_ID=$(python -c "import mlflow; print(mlflow.search_runs(experiment_ids=['0']).iloc[0].run_id)")
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
           echo "Latest run_id: $RUN_ID"
 
