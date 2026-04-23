@@ -27,8 +27,8 @@ jobs:
         run: |
           # Salin dataset ke dalam folder MLProject agar terbaca oleh skrip terisolasi
           cp telco_preprocessing/telco_processed.csv MLProject/
-          # Jalankan MLflow dari folder MLProject
-          mlflow run MLProject --env-manager=local
+          # Jalankan MLflow dan paksa parameter dataset ke file yang baru disalin
+          mlflow run MLProject --env-manager=local -P dataset=telco_processed.csv
 
       - name: Get latest MLflow run_id
         run: |
