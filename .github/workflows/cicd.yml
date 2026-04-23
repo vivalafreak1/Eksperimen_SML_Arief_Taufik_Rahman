@@ -25,8 +25,10 @@ jobs:
 
       - name: Run MLflow Project
         run: |
-          # Menjalankan MLProject menggunakan env-manager=local agar menggunakan dependensi pip yang sudah diinstal
-          mlflow run . --env-manager=local
+          # Salin dataset ke dalam folder MLProject agar terbaca oleh skrip terisolasi
+          cp telco_preprocessing/telco_processed.csv MLProject/
+          # Jalankan MLflow dari folder MLProject
+          mlflow run MLProject --env-manager=local
 
       - name: Get latest MLflow run_id
         run: |
@@ -36,7 +38,6 @@ jobs:
 
       - name: Build Docker Image from MLflow Model
         run: |
-          # Membangun docker image menggunakan MLflow
           mlflow models build-docker --model-uri "runs:/$RUN_ID/model" --name "telco-churn-model"
 
       - name: Log in to Docker Hub
@@ -47,6 +48,5 @@ jobs:
 
       - name: Tag and Push Docker Image
         run: |
-          # Ganti DOCKER_HUB_USERNAME dengan variabel secret
           docker tag telco-churn-model ${{ secrets.DOCKER_HUB_USERNAME }}/telco-churn:latest
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/telco-churn:latest
