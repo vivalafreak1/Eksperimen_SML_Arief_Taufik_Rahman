@@ -78,6 +78,6 @@ with mlflow.start_run(run_name="XGBoost_Tuning"):
 
     # Log Model & Input Example (sangat penting untuk Kriteria 4 nanti)
     input_example = X_train.iloc[:5]
-    mlflow.xgboost.log_model(best_model, "model", input_example=input_example)
+    mlflow.sklearn.log_model(best_model, "model", input_example=input_example)
 
     print("Training selesai! Artefak dan model telah dikirim ke DagsHub.")
